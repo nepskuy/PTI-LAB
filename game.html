@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clicker Game</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet"  href="style.css" />
+	<script src="https://kit.fontawesome.com/9d53a2f771.js" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="game.html">Main Game</a></li>
+            <li><a href="About us.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <hr id="line">
+    <hr id="space">
+    
+    <div class="sectionLeft">
+        <center>
+            <div class="scoreContainer unselectable">
+                <span id="score">0</span> Rupiah<br>
+                <span id="scorepersecond">0</span> Rupiah per detik
+            </div>
+            <br>
+            <div class="clickerContainer unselectable">
+                <img src="assets/anjing.png" height="500px" width="500px" onclick="addToScore(clickingPower)">
+            </div>
+        </center>
+    
+        <div class="sectionFooter">
+           
+        </div>
+    </div>
+
+    <hr id="space">
+
+    <div class="sectionRight">
+        <table class="shopButton unselectable" onclick="buyClicker()">
+            <tr>
+                <td id="image"><img src="assets/anjing.png"></td>
+                <td id="nameAndCost">
+                    <p>Buy auto Clicker</p>
+                    <p><span id="clickercost">15000</span> Rupiah</p>
+                </td>
+                <td id="amount"><span id="clicker">0</span></td>
+            </tr>
+        </table>
+
+        <hr id="space">
+        
+        <table class="shopButton unselectable" onclick="buyCabang()">
+            <tr>
+                <td id="image"><img src="assets/anjing.png"></td>
+                <td id="nameAndCost">
+                    <p>Buka Cabang</p>
+                    <p><span id="cabangcost">100000</span>Rupiah</p>
+                </td>
+                <td id="amount"><span id="cabang">0</span></td>
+            </tr>    
+
+            <hr id="space">
+
+            <h3>Upgrades Dagangan</h3>
+            <ul>
+                <button onclick="upgradeBakwan()">Jual Bakwan</button>
+                <lu>Rp5.000</lu>
+            </ul>
+            <ul>
+                <button onclick="upgradeTempe()">Jual Tempe Goreng</button>
+                <lu>Rp8.000</lu>
+            </ul>
+            <ul>
+                
+                <button onclick="upgradeLumpia()">Jual Lumpia </button>
+                <lu>Rp6.000</lu>
+            </ul>
+            <script>
+                let hargaBakwan = 5000;
+                let hargaTempe = 8000;
+                let hargaLumpia = 6000;
+        
+                function upgradeBakwan() {
+                    hargaBakwan += 5000;
+                    alert("Harga Bakwan telah diupgrade! Harga sekarang: Rp" + hargaBakwan);
+                }
+        
+                function upgradeTempe() {
+                    hargaTempe += 5000;
+                    alert("Harga Tempe Goreng telah diupgrade! Harga sekarang: Rp" + hargaTempe);
+                }
+        
+                function upgradeLumpia() {
+                    hargaLumpia += 5000;
+                    alert("Anda telah berhasil upgrade Lumpia! Harga sekarang: Rp" + hargaLumpia);
+                }
+        
+	</script>
+	
+     <script src="script.js"> </script>
+	 <p id="uang">Uang: Rp0</p>
+
+<script>
+var score = 0;
+var clickingPower = 1000;
+
+var clickerCost = 15000;
+var clicker = 0;
+var cabangCost = 100000;
+var cabang = 0;
+
+function buyClicker(){
+    if (score >= clickerCost){
+        score = score - clickerCost;
+        clicker = clicker + 1000;
+        clickerCost = Math.round(clickerCost * 1.15);
+        alert("Berhasil membeli Auto Clicker");
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("clickercost").innerHTML = clickerCost;
+        document.getElementById("clicker").innerHTML = clicker;
+        updateScorePerSecond();
+    }
+}
+
+function buyCabang(){
+    if (score >= cabangCost) {
+        score = score - cabangCost;
+        cabang = cabang + 10000;
+        cabangCost = Math.round(cabangCost * 1.15);
+        alert("Kamu Berhasil Buka Cabang!");
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("cabangcost").innerHTML = cabangCost;
+        document.getElementById("cabang").innerHTML = cabang;
+        updateScorePerSecond();
+    }
+}
+
+function addToScore(amount){
+    score = score + amount;
+    document.getElementById("score").innerHTML = score;
+}
+
+function updateScorePerSecond(){
+    scorePerSecond = clicker + cabang ;
+    document.getElementById("scorepersecond").innerHTML = scorePerSecond;
+}
+
+setInterval (function(){
+    score = score + clicker;
+    score = score + cabang ;
+    document.getElementById("score").innerHTML = score;
+}, 1000);
+
+
+</script>
+</body>
+</html>
